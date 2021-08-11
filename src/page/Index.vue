@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <b-container fluid style="margin-top: 4rem">
       <b-row class="my-1">
         <b-col sm="3"> </b-col>
@@ -10,62 +10,111 @@
           ></b-form-input>
         </b-col>
         <b-col sm="1">
-          <b-button @click="searchLabData()" variant="outline-primary">Search</b-button>
+          <b-button @click="searchLabData()" variant="outline-primary"
+            >Search</b-button
+          >
         </b-col>
       </b-row>
     </b-container>
     <div class="container">
       <div id="printMe" class="row">
-        
-        <div class="col-xs-12 col-md-10 offset-md-1 pt-5">
+        <div
+          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          v-if="isFound == true"
+        >
           <div class="table-responsive">
-            <table class="table borderless" v-if="isFound==true">
+            <table class="table borderless">
               <tbody>
                 <tr>
-                  <td><b>Patient Name :</b></td>
+                  <td stlye="text-algin:left"><b>Patient Name :</b></td>
                   <td>{{ result.patientname }}</td>
-                  <td>97</td>
-                  <td>Miiiiiiiiiyaaaaw!!!</td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>Doge</td>
-                  <td>Cure</td>
-                  <td>80</td>
-                  <td>Nggggggggggggrraw!!!</td>
+                  <td><b>Hospital Number :</b></td>
+                  <td>{{ result.hn }}</td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>Doge</td>
-                  <td>Pickle</td>
-                  <td>79</td>
-                  <td>Aaaaaaw!!! *high pitch*</td>
+                  <td><b>Collected Date/Time :</b></td>
+                  <td>{{ dateOfCollect }}</td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>Doge</td>
-                  <td>V3</td>
-                  <td>90</td>
-                  <td>Raaaaw!!! *high pitch*</td>
-                </tr>
-                <tr>
-                  <td>Doge</td>
-                  <td>V4</td>
-                  <td>40</td>
-                  <td>Raaaaw!!! *high pitch x3*</td>
+                  <td><b>Doctor</b></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div style="text-align:center; margin-top:3rem; padding-top:1rem">
-        <vue-qrcode
-            v-if="qrValue != null && qrValue != ''"
+        <div
+          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          v-if="isFound == true"
+          style="margin-top: 3rem"
+        >
+          <div class="table-responsive">
+            <table class="table borderless">
+              <tbody>
+                <tr>
+                  <td stlye="text-algin:left">
+                    <b>SARSA-COV-2 Real-time RT-PCR (COVID-19)</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Method :</td>
+                  <td>{{ method }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Specimen :</td>
+                  <td>{{ specimen }}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>SARS-Cov-2 RNA :</td>
+                  <td>{{ sars }}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Limit of detection :</td>
+                  <td>{{ limit }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          style="
+            text-align: right;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            padding-right: 10%;
+          "
+        >
+          <vue-qrcode
+            v-if="qrValue != null && qrValue != '' && isFound == true"
             :value="qrValue"
             class="border border-dark"
-            style="height: 200px; width: 200px;"
+            style="height: 200px; width: 200px"
           />
-          </div>
+        </div>
       </div>
-      <div style="margin-top:1rem">
-      <b-button @click="print()" variant="outline-primary">Print</b-button>
+      <div style="margin-top: 1rem">
+        <b-button
+          v-if="isFound == true"
+          @click="print()"
+          variant="outline-primary"
+          >Print</b-button
+        >
       </div>
     </div>
     <!-- <vue-html2pdf
@@ -96,27 +145,23 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueHtml2pdf from 'vue-html2pdf'  
-import VueHtmlToPaper from 'vue-html-to-paper';
+import Vue from "vue";
+import VueHtml2pdf from "vue-html2pdf";
+import VueHtmlToPaper from "vue-html-to-paper";
 import VueQrcode from "vue-qrcode";
 
-Vue.use(VueHtml2pdf)
-Vue.use(VueQrcode)
+Vue.use(VueHtml2pdf);
+Vue.use(VueQrcode);
 
 const options = {
-  name: '_blank',
-  specs: [
-    'fullscreen=yes',
-    'titlebar=yes',
-    'scrollbars=yes'
-  ],
+  name: "_blank",
+  specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
   styles: [
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-    'https://unpkg.com/kidlat-css/css/kidlat.css'
-  ]
-}
-Vue.use(VueHtmlToPaper,options);
+    "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+    "https://unpkg.com/kidlat-css/css/kidlat.css",
+  ],
+};
+Vue.use(VueHtmlToPaper, options);
 export default {
   name: "HelloWorld",
   components: {
@@ -125,15 +170,14 @@ export default {
   props: {
     msg: String,
   },
-  data() 
-  {
+  data() {
     return {
       isFound: false,
       qrValue: null,
-      search : {
-        labnumber: null
+      search: {
+        labnumber: null,
       },
-      result : {
+      result: {
         labnumber: null,
         patientname: null,
         sex: null,
@@ -149,30 +193,61 @@ export default {
         Company: null,
         method: null,
         specimen: null,
-        sars: null
-      }
-    }
+        sars: null,
+        limit: null,
+      },
+    };
   },
   methods: {
-    async searchLabData()
-    {
-      this.isFound = false;
-      let labData = await this.$http.get(`/api/v1/patient/getpatientlabcovid19`);
-      this.qrValue = `http://phr.samitivejhospitals.com/?token=` + this.result.labnumber;
-      this.result.patientname = labData.data[0].Gvn_nme + ' ' + labData.data[0].Sur_nme
-      console.log(labData.data)
+    async searchLabData() {
+      if (this.search.labnumber != null && this.search.labnumber != "")
+        this.isFound = false;
+      let labData = await this.$http.get(
+        `/api/v1/patient/getpatientlabcovid19?labnumber=${this.search.labnumber}`
+      );
+
+      if (labData.data.length > 0) {
+        this.result.patientname =
+          labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
+        this.result.hn = labData.data[0].HN;
+        this.result.labnumber = labData.data[0].LabNumber;
+        this.dateOfCollect =
+          labData.data[0].Dte_of_col + " " + labData.data[0].Tme_of_Col;
+      }
+
+      labData.data.map((d) => {
+        if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
+          this.method = d.LabResult;
+        }
+        if (d.CTTC_Cde == "M0004" && d.CTTC_Des == "Method") {
+          this.specimen = d.LabResult;
+        }
+        if (d.CTTC_Cde == "M3665" && d.CTTC_Des == "Limit of detection") {
+          this.sars = d.LabResult;
+        }
+        if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
+          this.limit = d.LabResult;
+        }
+      });
+      var jwt = require("jsonwebtoken");
+      var token = jwt.sign(
+        {
+          data: this.result.labnumber,
+        },
+        "Ar3b1Op"
+      );
+      this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
       this.isFound = true;
     },
-        /*
+    /*
             Generate Report using refs and calling the
             refs function generatePdf()
         */
-        print () {
-          console.log('11111')
-          this.$htmlToPaper('printMe');
-            // this.$refs.html2Pdf.generatePdf()
-        }
+    print() {
+      this.$htmlToPaper("printMe");
+      // this.$refs.html2Pdf.generatePdf()
     },
+  },
 };
 </script>
 
@@ -192,7 +267,11 @@ li {
 a {
   color: #42b983;
 }
-.borderless td, .borderless th {
-    border: none;
+.borderless td,
+.borderless th {
+  border: none;
+}
+.table td {
+  text-align: left;
 }
 </style>

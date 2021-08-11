@@ -3,6 +3,7 @@
     <b-container fluid style="margin-top: 4rem">
       <b-row class="my-1">
         <b-col sm="3"> </b-col>
+        
         <b-col sm="5" style="text-agin: center">
           <b-form-input
             v-model="search.labnumber"
@@ -17,12 +18,14 @@
       </b-row>
     </b-container>
     <div class="container">
-      <div id="printMe" class="row">
+      <div id="printMe" class="printMe" v-if="isFound == true" style="margin-top:2rem">
         <div
           class="col-xs-12 col-md-10 offset-md-1 pt-5"
           v-if="isFound == true"
         >
-          <div class="table-responsive">
+         <img alt="Samitivej" src="../assets/logo.png" style="height: 80px">
+         <p style="margin-top:2rem;font-size:25px"><b>Laboratory Report</b></p>
+          <div class="table-responsive" style="margin-top:1rem">
             <table class="table borderless">
               <tbody>
                 <tr>
@@ -39,13 +42,43 @@
                 </tr>
                 <tr>
                   <td><b>Collected Date/Time :</b></td>
-                  <td>{{ dateOfCollect }}</td>
+                  <td>{{ result.dateOfCollect }}</td>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
-                  <td><b>Doctor</b></td>
+                  <td><b>Doctor :</b></td>
+                  <td>{{ result.doctor }}</td>
                   <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Sex :</b></td>
+                  <td>{{ result.sex }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Age :</b></td>
+                  <td>{{ result.age }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>DOB :</b></td>
+                  <td>{{ result.dob }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Lab Episode :</b></td>
+                  <td>{{ result.labnumber }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Company :</b></td>
+                  <td>{{ result.site }}</td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -63,28 +96,28 @@
               <tbody>
                 <tr>
                   <td stlye="text-algin:left">
-                    <b>SARSA-COV-2 Real-time RT-PCR (COVID-19)</b>
+                    <b>{{ result.ctts_nme }}</b>
                   </td>
                 </tr>
                 <tr>
                   <td>Method :</td>
-                  <td>{{ method }}</td>
+                  <td>{{ result.method }}</td>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Specimen :</td>
-                  <td>{{ specimen }}</td>
+                  <td>{{ result.specimen }}</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>SARS-Cov-2 RNA :</td>
-                  <td>{{ sars }}</td>
+                  <td>{{ result.sars }}</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Limit of detection :</td>
-                  <td>{{ limit }}</td>
+                  <td>{{ result.limit }}</td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -93,6 +126,41 @@
           </div>
         </div>
         <div
+          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          v-if="isFound == true"
+          style="margin-top: 3rem"
+        >
+          <div class="table-responsive">
+            <table class="table borderless">
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td><vue-qrcode
+            v-if="qrValue != null && qrValue != '' && isFound == true"
+            :value="qrValue"
+            class="border border-dark"
+            style="height: 200px; width: 200px"
+          /></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Authorised by : {{ result.authorised }}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- <div
           style="
             text-align: right;
             margin-top: 3rem;
@@ -106,9 +174,9 @@
             class="border border-dark"
             style="height: 200px; width: 200px"
           />
-        </div>
+        </div> -->
       </div>
-      <div style="margin-top: 1rem">
+      <div style="margin-top: 3rem; margin-bottom: 3rem">
         <b-button
           v-if="isFound == true"
           @click="print()"
@@ -195,6 +263,9 @@ export default {
         specimen: null,
         sars: null,
         limit: null,
+        ctts_nme: null,
+        site: null,
+        authorised: null
       },
     };
   },
@@ -206,30 +277,39 @@ export default {
         `/api/v1/patient/getpatientlabcovid19?labnumber=${this.search.labnumber}`
       );
 
+      
+
+      labData.data.map((d) => {
+        if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
+          this.result.specimen = d.LabResult;
+        }
+        if (d.CTTC_Cde == "M0004" && d.CTTC_Des == "Method") {
+          this.result.method = d.LabResult;
+        }
+        if (d.CTTC_Cde == "M3665" && d.CTTC_Des == "Limit of detection") {
+          this.result.limit = d.LabResult;
+        }
+        if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
+          this.result.sars = d.LabResult;
+        }
+      });
+
       if (labData.data.length > 0) {
         this.result.patientname =
           labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
         this.result.hn = labData.data[0].HN;
         this.result.labnumber = labData.data[0].LabNumber;
-        this.dateOfCollect =
+        this.result.sex = labData.data[0].EPVIS_Sex;
+        this.result.age = labData.data[0].EPVIS_Age;
+        this.result.dob = labData.data[0].EPVIS_DateOfBirth;
+        this.result.dateOfCollect =
           labData.data[0].Dte_of_col + " " + labData.data[0].Tme_of_Col;
-      }
-
-      labData.data.map((d) => {
-        if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
-          this.method = d.LabResult;
-        }
-        if (d.CTTC_Cde == "M0004" && d.CTTC_Des == "Method") {
-          this.specimen = d.LabResult;
-        }
-        if (d.CTTC_Cde == "M3665" && d.CTTC_Des == "Limit of detection") {
-          this.sars = d.LabResult;
-        }
-        if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
-          this.limit = d.LabResult;
-        }
-      });
-      var jwt = require("jsonwebtoken");
+        this.result.doctor = labData.data[0].DoctorName;
+        this.result.ctts_nme = labData.data[0].CTTS_Nme;
+        this.result.site = labData.data[0].Site;
+        this.result.authorised = labData.data[0].Usr_aut + ' on ' 
+        + labData.data[0].VISTS_Dte_of_aut + ' ' + labData.data[0].VISTS_Tme_of_aut
+          var jwt = require("jsonwebtoken");
       var token = jwt.sign(
         {
           data: this.result.labnumber,
@@ -237,7 +317,10 @@ export default {
         "Ar3b1Op"
       );
       this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
+      console.log(this.qrValue)
       this.isFound = true;
+      }
+      
     },
     /*
             Generate Report using refs and calling the
@@ -270,8 +353,14 @@ a {
 .borderless td,
 .borderless th {
   border: none;
+  border-top: none;
+  border-bottom: none;
 }
+.table { border-collapse:collapse }
 .table td {
   text-align: left;
+}
+.printMe {
+  border: 1px solid #007065;
 }
 </style>

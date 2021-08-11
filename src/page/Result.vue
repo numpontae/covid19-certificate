@@ -28,8 +28,32 @@
                   <td></td>
                 </tr>
                 <tr>
-                  <td><b>Doctor</b></td>
+                  <td><b>Doctor :</b></td>
                   <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Sex :</b></td>
+                  <td>{{ result.sex }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Age :</b></td>
+                  <td>{{ result.age }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>DOB :</b></td>
+                  <td>{{ result.dob }}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Lab Episode :</b></td>
+                  <td>{{ result.labnumber }}</td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -51,24 +75,24 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Method :</td>
-                  <td>{{ method }}</td>
+                  <td> Method :</td>
+                  <td>{{ result.method }}</td>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Specimen :</td>
-                  <td>{{ specimen }}</td>
+                  <td>{{ result.specimen }}</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>SARS-Cov-2 RNA :</td>
-                  <td>{{ sars }}</td>
+                  <td>{{ result.sars }}</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td>Limit of detection :</td>
-                  <td>{{ limit }}</td>
+                  <td>{{ result.limit }}</td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -194,6 +218,9 @@ export default {
               labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
             this.result.hn = labData.data[0].HN;
             this.result.labnumber = labData.data[0].LabNumber;
+            this.result.sex = labData.data[0].EPVIS_Sex;
+            this.result.age = labData.data[0].EPVIS_Age;
+            this.result.dob = labData.data[0].EPVIS_DateOfBirth;
             this.dateOfCollect =
               labData.data[0].Dte_of_col + " " + labData.data[0].Tme_of_Col;
             console.log(labData.data);
@@ -202,16 +229,16 @@ export default {
 
           labData.data.map((d) => {
             if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
-              this.method = d.LabResult;
+              this.result.specimen = d.LabResult;
             }
             if (d.CTTC_Cde == "M0004" && d.CTTC_Des == "Method") {
-              this.specimen = d.LabResult;
+              this.result.method = d.LabResult;
             }
             if (d.CTTC_Cde == "M3665" && d.CTTC_Des == "Limit of detection") {
-              this.sars = d.LabResult;
+              this.result.limit = d.LabResult;
             }
             if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
-              this.limit = d.LabResult;
+              this.result.sars = d.LabResult;
             }
           });
         }

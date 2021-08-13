@@ -25,7 +25,7 @@
         style="margin-top: 2rem"
       >
         <div
-          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          style="padding-left:10px;padding-right:10px"
           v-if="isFound == true"
         >
           <p align="center">
@@ -43,28 +43,28 @@
             />
           </p>
           <p style="font-size: 25px" align="center"><b>Laboratory Report</b></p>
-          <b-container style="margin-top: 2rem">
-            <b-row class="text-left" style="text-algin: left">
+          <b-container style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid black;" >
+            <b-row class="text-left" style="text-algin: left; ">
               <b-col cols="3"><b>Patient Name :</b></b-col>
               <b-col cols="3">{{ result.patientname }}</b-col>
-              <b-col cols="2"><b>Sex : </b>{{ result.sex }}</b-col>
-              <b-col cols="2"><b>Age : </b>{{ result.age }}</b-col>
-              <b-col cols="2"><b>DOB : </b>{{ result.dob }}</b-col>
+              <b-col cols="2"><b>Sex: </b>{{ result.sex }}</b-col>
+              <b-col cols="2"><b>Age: </b>{{ result.age }}</b-col>
+              <b-col cols="2"><b>DOB: </b>{{ result.dob }}</b-col>
             </b-row>
-            <b-row style="margin-top: 1rem" class="text-left">
+            <b-row style="margin-top: 1rem;" class="text-left">
               <b-col cols="3"><b>Hospital Number:</b></b-col>
               <b-col cols="3">{{ result.hn }}</b-col>
               <b-col cols="2"><b>Lab Episode :</b></b-col>
               <b-col cols="2">{{ result.labnumber }}</b-col>
             </b-row>
-            <b-row style="margin-top: 1rem" class="text-left">
+            <b-row style="margin-top: 1rem; padding-bottom: 1rem; border-bottom: 2px solid black;" class="text-left">
               <b-col cols="3"><b>Collected Date/Time :</b></b-col>
               <b-col cols="3">{{ result.dateOfCollect }}</b-col>
               <b-col cols="2"><b>Doctor :</b></b-col>
               <b-col cols="4">{{ result.doctor }}</b-col>
             </b-row>
           </b-container>
-          <b-container style="margin-top: 3rem">
+          <b-container style="margin-top: 3rem" >
             <b-row class="text-left" style="text-algin: left">
               <b-col cols="12"
                 ><b>{{ result.ctts_nme }}</b></b-col
@@ -188,7 +188,7 @@
           </div>
         </div> -->
         <div
-          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          style="padding-left:10px;padding-right:10px"
           v-if="isFound == true"
         >
         <b-container style="margin-top: 3rem; margin-bottom: 3rem">
@@ -206,12 +206,12 @@
                     </b-col
             >
           </b-row>
-          <b-row style="margin-top: 1rem" class="text-left">
+          <b-row style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid black;" class="text-left">
             <b-col cols="12"
               >Reported by : {{ result.reported }}</b-col
             >
           </b-row>
-          <b-row style="margin-top: 1rem" class="text-left">
+          <b-row style="margin-top: 1rem; padding-bottom: 1rem; border-bottom: 2px solid black;" class="text-left">
             <b-col cols="12"
               >Authorised by : {{ result.authorised }}</b-col
             >

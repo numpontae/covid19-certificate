@@ -1,7 +1,9 @@
 <template>
-  <div class="home" style="margin-top:2rem;text-align:center">
+  <div class="home" >
+    <div style="margin-top:2rem;text-align:center">
     <img alt="Samitivej" src="../assets/logo.png" style="height: 120px">
-    <Index msg="Welcome to Your Vue.js App"/>
+    </div>
+    <Index/>
   </div>
 </template>
 

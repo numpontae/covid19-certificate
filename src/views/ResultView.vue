@@ -1,6 +1,6 @@
 <template>
-  <div class="home" style="margin-top:2rem">
-    <img alt="Samitivej" src="../assets/logo.png" style="height: 120px">
+  <div class="home">
+    <!-- <img alt="Samitivej" src="../assets/logo.png" style="height: 120px"> -->
     <Result msg="Welcome to Your Vue.js App"/>
   </div>
 </template>

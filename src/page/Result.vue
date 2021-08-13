@@ -5,142 +5,117 @@
         id="printMe"
         class="printMe"
         v-if="isFound == true"
-        style="margin-top: 2rem"
+        style="margin-top: 2rem;margin-bottom: 2rem"
       >
         <div
-          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          class="col-xs-12 col-md-10 offset-md-1"
           v-if="isFound == true"
         >
-          <img alt="Samitivej" src="../assets/logo.png" style="height: 80px" />
-          <p style="margin-top: 2rem; font-size: 25px">
+          <p align="center">
+            <img
+              alt="Samitivej"
+              src="../assets/SNH.jpg"
+              style="height: 90px"
+              v-if="result.site == 'SNH'"
+            />
+            <img
+              alt="Samitivej"
+              src="../assets/SVH.jpg"
+              style="height: 90px"
+              v-if="result.site == 'SVH'"
+            />
+          </p>
+          <p style="margin-top: 2rem; font-size: 25px; text-align:center">
             <b>Laboratory Report</b>
           </p>
-          <div class="table-responsive" style="margin-top: 1rem">
+          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid black; 
+          margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid black;
+          font-size:12px;">
             <table class="table borderless">
               <tbody>
                 <tr>
                   <td stlye="text-algin:left"><b>Patient Name :</b></td>
                   <td>{{ result.patientname }}</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b>Hospital Number :</b></td>
-                  <td>{{ result.hn }}</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b>Collected Date/Time :</b></td>
-                  <td>{{ result.dateOfCollect }}</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><b>Doctor :</b></td>
-                  <td>{{ result.doctor }}</td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td><b>Sex :</b></td>
                   <td>{{ result.sex }}</td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td><b>Age :</b></td>
                   <td>{{ result.age }}</td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td><b>DOB :</b></td>
                   <td>{{ result.dob }}</td>
-                  <td></td>
-                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Hospital Number :</b></td>
+                  <td>{{ result.hn }}</td>
                 </tr>
                 <tr>
                   <td><b>Lab Episode :</b></td>
                   <td>{{ result.labnumber }}</td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <tr>
-                  <td><b>Company :</b></td>
-                  <td>{{ result.site }}</td>
-                  <td></td>
-                  <td></td>
+                  <td><b>Collected Date/Time :</b></td>
+                  <td>{{ result.dateOfCollect }}</td>
+                </tr>
+                <tr>
+                  <td><b>Doctor :</b></td>
+                  <td>{{ result.doctor }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
         <div
-          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          class="col-xs-12 col-md-10 offset-md-1"
           v-if="isFound == true"
-          style="margin-top: 3rem"
+          style="margin-top: 0rem; font-size:12px;"
         >
           <div class="table-responsive">
             <table class="table borderless">
               <tbody>
                 <tr>
-                  <td stlye="text-algin:left">
+                  <td stlye="text-algin:left" colspan="2">
                     <b>{{ result.ctts_nme }}</b>
                   </td>
                 </tr>
+
                 <tr>
-                  <td>Method :</td>
+                  <td style="padding-left:20px">Method :</td>
                   <td>{{ result.method }}</td>
-                  <td></td>
-                  <td></td>
                 </tr>
                 <tr>
-                  <td>Specimen :</td>
+                  <td style="padding-left:20px">Specimen :</td>
                   <td>{{ result.specimen }}</td>
-                  <td></td>
                 </tr>
                 <tr>
-                  <td>SARS-Cov-2 RNA :</td>
+                  <td style="padding-left:20px">SARS-Cov-2 RNA :</td>
                   <td>{{ result.sars }}</td>
-                  <td></td>
                 </tr>
-                <tr>
-                  <td>Limit of detection :</td>
-                  <td>{{ result.limit }}</td>
-                  <td></td>
-                  <td></td>
+                <tr style="">
+                  <td style="padding-left:20px;padding-top:30px">Limit of detection :</td>
+                  <td style="padding-top:30px">{{ result.limit }}</td>  
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
         <div
-          class="col-xs-12 col-md-10 offset-md-1 pt-5"
+          class="col-xs-12 col-md-10 offset-md-1"
           v-if="isFound == true"
-          style="margin-top: 3rem"
         >
-          <div class="table-responsive">
-            <table class="table borderless">
+          <div class="table-responsive" style="margin-top: 0rem; border-top: 2px solid black; 
+          margin-bottom: 1rem; border-bottom: 2px solid black; font-size:12px;">
+            <table class="table borderless" style="margin-top: 1rem;">
               <tbody>
                 <tr>
-                  <td></td>
-                  <td>
-                    <vue-qrcode
-                      v-if="qrValue != null && qrValue != '' && isFound == true"
-                      :value="qrValue"
-                      class="border border-dark"
-                      style="height: 200px; width: 200px"
-                    />
-                  </td>
-                  <td></td>
-                  <td></td>
+                  <td>Reported by : {{ result.reported }}</td>
                 </tr>
-                <tr>
-                  <td>Authorised by : {{ result.authorised }}</td>
-                </tr>
-                <tr>
-                  <td></td>
+                <tr> 
+                  <td >Authorised by : {{ result.authorised }}</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -199,10 +174,8 @@
 import Vue from "vue";
 import VueHtml2pdf from "vue-html2pdf";
 import VueHtmlToPaper from "vue-html-to-paper";
-import VueQrcode from "vue-qrcode";
 
 Vue.use(VueHtml2pdf);
-Vue.use(VueQrcode);
 
 const options = {
   name: "_blank",
@@ -216,7 +189,6 @@ Vue.use(VueHtmlToPaper, options);
 export default {
   name: "HelloWorld",
   components: {
-    VueQrcode,
   },
   props: {
     msg: String,
@@ -247,6 +219,10 @@ export default {
         specimen: null,
         sars: null,
         limit: null,
+        site: null,
+        ctts_nme: null,
+        authorised: null,
+        reported: null,
       },
     };
   },
@@ -263,7 +239,6 @@ export default {
           let labData = await this.$http.get(
             `/api/v1/patient/getlabcovid19?labnumber=${decoded.data}`
           );
-          console.log(labData.data.length);
           if (labData.data.length > 0) {
             this.result.patientname =
               labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
@@ -283,6 +258,12 @@ export default {
               labData.data[0].VISTS_Dte_of_aut +
               " " +
               labData.data[0].VISTS_Tme_of_aut;
+              this.result.reported =
+          labData.data[0].Usr_report +
+          " on " +
+          labData.data[0].report_date +
+          " " +
+          labData.data[0].report_time;
             this.isFound = true;
           }
 
@@ -330,7 +311,5 @@ a {
 .table td {
   text-align: left;
 }
-.printMe {
-  border: 1px solid #007065;
-}
+
 </style>

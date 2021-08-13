@@ -25,20 +25,20 @@
         style="margin-top: 2rem"
       >
         <div
-          style="padding-left:10px;padding-right:10px"
+          style="padding-left:10px;padding-right:10px; margin-top:2rem"
           v-if="isFound == true"
         >
           <p align="center">
             <img
               alt="Samitivej"
               src="../assets/SNH.jpg"
-              style="height: 250px"
+              style="height: 90px"
               v-if="result.site == 'SNH'"
             />
             <img
               alt="Samitivej"
               src="../assets/SVH.jpg"
-              style="height: 250px"
+              style="height: 90px"
               v-if="result.site == 'SVH'"
             />
           </p>
@@ -415,7 +415,8 @@ export default {
           },
           "Ar3b1Op"
         );
-        this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
+        this.qrValue = `http://192.168.1.104:8080/Result?token=` + token;
+        // this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
         console.log(this.qrValue);
         this.isFound = true;
       }

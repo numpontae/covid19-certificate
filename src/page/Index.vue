@@ -64,7 +64,7 @@
             <tr style="border-top: 2px solid black;">
               <td style="font-size: 12px; padding-top:0;line-height:4px; width:100%;padding-bottom:7px" v-if="result.site == 'SNH'">
                 <b>
-                  133 SUKHUMVIT 49, KLONGTAN NUA, VADHANA, BANGKOK 10110,
+                  488 SRINAKARIN RD., SUANLUANG, BANGKOK 10250,
                   THAILAND, TEL. 0-2022-2222 FAX: (66) 0-2391-1290
                 </b>
               </td>

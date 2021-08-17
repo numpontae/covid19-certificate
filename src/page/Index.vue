@@ -439,7 +439,6 @@ export default {
           },
           "Ar3b1Op"
         );
-        // this.qrValue = `http://192.168.1.104:8080/Result?token=` + token;
         this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
         this.isFound = true;
       }

@@ -23,9 +23,9 @@
           style="padding-left: 10px; padding-right: 10px"
           v-if="isFound == true"
         >
-        <!-- <div class="container" style="padding-right: 0"> -->
+          <!-- <div class="container" style="padding-right: 0"> -->
           <table border="0" style="margin-top: 2rem">
-            <tr >
+            <tr>
               <td rowspan="4">
                 <img
                   alt="Samitivej"
@@ -41,88 +41,139 @@
                 />
               </td>
               <td>
-                <b>
-                  &nbsp;
-                </b>
+                <b> &nbsp; </b>
               </td>
-              
             </tr>
             <tr>
-              <td style="font-size: 12px; line-height:4px; width:100%;" v-if="result.site == 'SNH'">
+              <td
+                style="font-size: 12px; line-height: 4px; width: 100%"
+                v-if="result.site == 'SNH'"
+              >
                 <b>
-                  488 ถนนศรีนครินทร์ แขวงสวนหลวง เขตสวนหลวง กรุงเทพมหานคร 10250 โทร.
-                  0-2022-2222 แฟ็กซ์: (66) 0-2391-1290
+                  488 ถนนศรีนครินทร์ แขวงสวนหลวง เขตสวนหลวง กรุงเทพมหานคร 10250
+                  โทร. 0-2022-2222 แฟ็กซ์: (66) 0-2391-1290
                 </b>
               </td>
-              <td style="font-size: 12px; line-height:4px; width:100%;" v-if="result.site == 'SVH'">
+              <td
+                style="font-size: 12px; line-height: 4px; width: 100%"
+                v-if="result.site == 'SVH'"
+              >
                 <b>
                   133 สุขุมวิท 49 แขวงคลองตันเหนือ เขตวัฒนา กรุงเทพฯ 10110 โทร.
                   0-2022-2222 แฟ็กซ์: (66) 0-2391-1290
                 </b>
               </td>
             </tr>
-            <tr style="border-top: 2px solid black;">
-              <td style="font-size: 12px; padding-top:0;line-height:4px; width:100%;padding-bottom:7px" v-if="result.site == 'SNH'">
+            <tr style="border-top: 2px solid black">
+              <td
+                style="
+                  font-size: 12px;
+                  padding-top: 0;
+                  line-height: 4px;
+                  width: 100%;
+                  padding-bottom: 7px;
+                "
+                v-if="result.site == 'SNH'"
+              >
                 <b>
-                  488 SRINAKARIN RD., SUANLUANG, BANGKOK 10250,
-                  THAILAND, TEL. 0-2022-2222 FAX: (66) 0-2391-1290
+                  488 SRINAKARIN RD., SUANLUANG, BANGKOK 10250, THAILAND, TEL.
+                  0-2022-2222 FAX: (66) 0-2391-1290
                 </b>
               </td>
-              <td style="font-size: 12px; padding-top:0;line-height:4px; width:100%;padding-bottom:7px" v-if="result.site == 'SVH'">
+              <td
+                style="
+                  font-size: 12px;
+                  padding-top: 0;
+                  line-height: 4px;
+                  width: 100%;
+                  padding-bottom: 7px;
+                "
+                v-if="result.site == 'SVH'"
+              >
                 <b>
                   133 SUKHUMVIT 49, KLONGTAN NUA, VADHANA, BANGKOK 10110,
                   THAILAND, TEL. 0-2022-2222 FAX: (66) 0-2391-1290
                 </b>
               </td>
             </tr>
-            
           </table>
-          </div>
-          <div
-            style="padding-left: 10px; padding-right: 10px; margin-top: 2rem"
-            v-if="isFound == true"
-          >
-          </div>
-          <p
-            style="font-size: 25px; margin-top: 2rem; text-align: center"
-            align="center"
-          >
-            <b>Laboratory Report</b>
-          </p>
-          
-          <div
+        </div>
+        <div
+          style="padding-left: 10px; padding-right: 10px; margin-top: 2rem"
+          v-if="isFound == true"
+        ></div>
+        <p
+          style="font-size: 25px; margin-top: 2rem; text-align: center"
+          align="center"
+        >
+          <b>Laboratory Report</b>
+        </p>
+
+        <div
           style="padding-left: 10px; padding-right: 10px"
           v-if="isFound == true"
         >
-          <table border="0" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid black;width:100%">
-            <tr style="padding-top: 2rem;">
-              <td style="padding-top: 1rem;" width="20%"><b>Patient Name :</b></td>
-              
-              <td style="padding-top: 1rem;" colspan="2" width="15%">{{ result.patientname }}</td>
-              <td style="padding-top: 1rem;" width="10%"></td>
-              <td style="padding-top: 1rem;" width="18%"><b>Sex : </b>{{ result.sex }}</td>
-              <td style="padding-top: 1rem;" width="18%"><b>Age : </b>{{ result.age }}</td>
-              <td style="padding-top: 1rem;" width="19%"><b>DOB : </b>{{ result.dob }}</td>
-              </tr>
-              <tr style="padding-top: 2rem;">
-              <td style="padding-top: 1rem;" width="20%"><b>Hospital Number :</b></td>
-              
-              <td style="padding-top: 1rem;" colspan="2" width="15%">{{ result.hn }}</td>
-              <td style="padding-top: 1rem;" width="10%"></td>
-              <td style="padding-top: 1rem;" width="18%"><b>Lab Episode :</b></td>
-              <td style="padding-top: 1rem;" width="18%">{{ result.labnumber }}</td>
-              <td style="padding-top: 1rem;" width="19%"></td>
-              </tr>
-              <tr style="padding-top: 2rem;">
-              <td style="padding-top: 1rem;" width="20%"><b>Collected Date/Time :</b></td>
-              
-              <td style="padding-top: 1rem;" colspan="2" width="15%">{{ result.dateOfCollect }}</td>
-              <td style="padding-top: 1rem;" width="10%"></td>
-              <td style="padding-top: 1rem;" width="18%"><b>Doctor :</b></td>
-              <td style="padding-top: 1rem;" colspan="2" width="18%">{{ result.doctor }}</td>
-              <td style="padding-top: 1rem;" width="19%"></td>
-              </tr>
-            </table>
+          <table
+            border="0"
+            style="
+              margin-top: 1rem;
+              padding-top: 1rem;
+              border-top: 2px solid black;
+              width: 100%;
+            "
+          >
+            <tr style="padding-top: 2rem">
+              <td style="padding-top: 1rem" width="20%">
+                <b>Patient Name :</b>
+              </td>
+
+              <td style="padding-top: 1rem" colspan="2" width="15%">
+                {{ result.patientname }}
+              </td>
+              <td style="padding-top: 1rem" width="10%"></td>
+              <td style="padding-top: 1rem" width="18%">
+                <b>Sex : </b>{{ result.sex }}
+              </td>
+              <td style="padding-top: 1rem" width="18%">
+                <b>Age : </b>{{ result.age }}
+              </td>
+              <td style="padding-top: 1rem" width="19%">
+                <b>DOB : </b>{{ result.dob }}
+              </td>
+            </tr>
+            <tr style="padding-top: 2rem">
+              <td style="padding-top: 1rem" width="20%">
+                <b>Hospital Number :</b>
+              </td>
+
+              <td style="padding-top: 1rem" colspan="2" width="15%">
+                {{ result.hn }}
+              </td>
+              <td style="padding-top: 1rem" width="10%"></td>
+              <td style="padding-top: 1rem" width="18%">
+                <b>Lab Episode :</b>
+              </td>
+              <td style="padding-top: 1rem" width="18%">
+                {{ result.labnumber }}
+              </td>
+              <td style="padding-top: 1rem" width="19%"></td>
+            </tr>
+            <tr style="padding-top: 2rem">
+              <td style="padding-top: 1rem" width="20%">
+                <b>Collected Date/Time :</b>
+              </td>
+
+              <td style="padding-top: 1rem" colspan="2" width="15%">
+                {{ result.dateOfCollect }}
+              </td>
+              <td style="padding-top: 1rem" width="10%"></td>
+              <td style="padding-top: 1rem" width="18%"><b>Doctor :</b></td>
+              <td style="padding-top: 1rem" colspan="2" width="18%">
+                {{ result.doctor }}
+              </td>
+              <td style="padding-top: 1rem" width="19%"></td>
+            </tr>
+          </table>
           <!-- <b-container
             style="
               margin-top: 1rem;
@@ -157,37 +208,79 @@
               <b-col cols="4">{{ result.doctor }}</b-col>
             </b-row>
           </b-container> -->
-          <table border="0" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid black;width:100%">
-            <tr style="padding-top: 2rem;">
-              <td style="padding-top: 1rem;" colspan="6" width="15%"><b>{{ result.ctts_nme }}</b></td>
-              
-              <td style="padding-top: 1rem;" width="15%"></td>
-              <td style="padding-top: 1rem;" width="15%"></td>
-              <td style="padding-top: 1rem;" width="18%"></td>
-              <td style="padding-top: 1rem;" width="18%"></td>
-              <td style="padding-top: 1rem;" width="19%"></td>
-              </tr>
-              <tr>
-              <td style="padding-top: 1rem;padding-left: 2rem" width="25%"><b>Method :</b></td>
-              
-              <td style="padding-top: 1rem;margin-left: 2rem" colspan="2" width="75%">{{ result.method }}</td>
-              </tr>
-              <tr>
-              <td style="padding-top: 1rem;padding-left: 2rem" width="25%"><b>Specimen :</b></td>
-              
-              <td style="padding-top: 1rem;margin-left: 2rem" colspan="2" width="75%">{{ result.specimen }}</td>
-              </tr>
-              <tr>
-              <td style="padding-top: 1rem;padding-left: 2rem" width="25%"><b>SARS-Cov-2 RNA :</b></td>
-              
-              <td style="padding-top: 1rem;margin-left: 2rem" colspan="2" width="75%">{{ result.sars }}</td>
-              </tr>
-              <tr>
-              <td style="padding-top: 4rem;padding-left: 2rem" width="25%"><b>Limit of detection :</b></td>
-              
-              <td style="padding-top: 4rem;margin-left: 2rem" colspan="2" width="75%">{{ result.limit }}</td>
-              </tr>
-            </table>
+          <table
+            border="0"
+            style="
+              margin-top: 1rem;
+              padding-top: 1rem;
+              border-top: 2px solid black;
+              width: 100%;
+            "
+          >
+            <tr style="padding-top: 2rem">
+              <td style="padding-top: 1rem" colspan="6" width="15%">
+                <b>{{ result.ctts_nme }}</b>
+              </td>
+
+              <td style="padding-top: 1rem" width="15%"></td>
+              <td style="padding-top: 1rem" width="15%"></td>
+              <td style="padding-top: 1rem" width="18%"></td>
+              <td style="padding-top: 1rem" width="18%"></td>
+              <td style="padding-top: 1rem" width="19%"></td>
+            </tr>
+            <tr>
+              <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
+                <b>Method :</b>
+              </td>
+
+              <td
+                style="padding-top: 1rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.method }}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
+                <b>Specimen :</b>
+              </td>
+
+              <td
+                style="padding-top: 1rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.specimen }}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
+                <b>SARS-Cov-2 RNA :</b>
+              </td>
+
+              <td
+                style="padding-top: 1rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.sars }}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 4rem; padding-left: 2rem" width="25%">
+                <b>Limit of detection :</b>
+              </td>
+
+              <td
+                style="padding-top: 4rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.limit }}
+              </td>
+            </tr>
+          </table>
           <!-- <b-container style="margin-top: 3rem">
             <b-row class="text-left" style="text-algin: left">
               <b-col cols="12"
@@ -217,42 +310,56 @@
               <b-col cols="4">{{ result.limit }}</b-col>
             </b-row>
           </b-container> -->
-          </div>
+        </div>
         <!-- </div> -->
         <div
           style="padding-left: 10px; padding-right: 10px"
           v-if="isFound == true"
         >
-          <table border="0" style="margin-top: 30rem; margin-bottom: 3rem;width:100%">
-            <tr style="padding-top: 2rem;">
+          <table
+            border="0"
+            style="margin-top: 30rem; margin-bottom: 3rem; width: 100%"
+          >
+            <tr style="padding-top: 2rem">
               <td width="80%"></td>
-              
-              <td style="padding-top: 1rem;" width="20%"><vue-qrcode
+
+              <td style="padding-top: 1rem" width="20%">
+                <vue-qrcode
                   v-if="qrValue != null && qrValue != '' && isFound == true"
                   :value="qrValue"
                   style="height: 200px; width: 200px"
-                /></td>
-              </tr>
-              
-            </table>
-            <table border="0" style="margin-top: 1rem; margin-bottom: 3rem;width:100%">
-            <tr style="padding-top: 2rem;">
-              <tr style="
+                />
+              </td>
+            </tr>
+          </table>
+          <table
+            border="0"
+            style="margin-top: 1rem; margin-bottom: 3rem; width: 100%"
+          >
+            <tr style="padding-top: 2rem"></tr>
+            <tr
+              style="
                 margin-top: 2rem;
                 padding-top: 1rem;
                 border-top: 2px solid black;
-              ">
-              <td style="padding-top: 1rem;" width="100%"><b>Reported by : </b>{{ result.reported }}</td>
-              </tr>
-              <tr style="
+              "
+            >
+              <td style="padding-top: 1rem" width="100%">
+                <b>Reported by : </b>{{ result.reported }}
+              </td>
+            </tr>
+            <tr
+              style="
                 margin-top: 1rem;
                 padding-bottom: 1rem;
                 border-bottom: 2px solid black;
-              ">
-              <td style="padding-top: 1rem;padding-bottom: 1rem;" width="100%"><b>Authorised by : </b>{{ result.authorised }}</td>
-      
-              </tr>
-            </table>
+              "
+            >
+              <td style="padding-top: 1rem; padding-bottom: 1rem" width="100%">
+                <b>Authorised by : </b>{{ result.authorised }}
+              </td>
+            </tr>
+          </table>
           <!-- <b-container style="margin-top: 30rem; margin-bottom: 3rem">
             <b-row class="text-left" style="text-algin: left">
               <b-col cols="9"></b-col>
@@ -289,6 +396,7 @@
       </div>
       <div style="margin-top: 3rem; margin-bottom: 3rem; text-align: center">
         <b-button
+          :disabled="printDisabled"
           class="btn-lg"
           style="width: 15%"
           v-if="isFound == true"
@@ -355,6 +463,7 @@ export default {
     return {
       isFound: false,
       qrValue: null,
+      printDisabled: true,
       search: {
         labnumber: null,
       },
@@ -381,66 +490,95 @@ export default {
         authorised: null,
         reported: null,
       },
-      data: []
+      data: [],
     };
   },
   methods: {
     async searchLabData() {
-      if (this.search.labnumber != null && this.search.labnumber != "")
+      if (this.search.labnumber != null && this.search.labnumber != "") {
         this.isFound = false;
-      let labData = await this.$http.get(
-        `/api/v1/patient/getpatientlabcovid19?labnumber=${this.search.labnumber}`
-      );
-      this.data = labData.data
-      labData.data.map((d) => {
-        if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
-          this.result.specimen = d.LabResult;
-        }
-        if (d.CTTC_Cde == "M0004" && d.CTTC_Des == "Method") {
-          this.result.method = d.LabResult;
-        }
-        if (d.CTTC_Cde == "M3665" && d.CTTC_Des == "Limit of detection") {
-          this.result.limit = d.LabResult;
-        }
-        if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
-          this.result.sars = d.LabResult;
-        }
-      });
-
-      if (labData.data.length > 0) {
-        this.result.patientname =
-          labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
-        this.result.hn = labData.data[0].HN;
-        this.result.labnumber = labData.data[0].LabNumber;
-        this.result.sex = labData.data[0].EPVIS_Sex;
-        this.result.age = labData.data[0].EPVIS_Age;
-        this.result.dob = labData.data[0].EPVIS_DateOfBirth;
-        this.result.dateOfCollect =
-          labData.data[0].Dte_of_col + " " + labData.data[0].Tme_of_Col;
-        this.result.doctor = labData.data[0].DoctorName;
-        this.result.ctts_nme = labData.data[0].CTTS_Nme;
-        this.result.site = labData.data[0].Site;
-        this.result.authorised =
-          labData.data[0].Usr_aut +
-          " on " +
-          labData.data[0].VISTS_Dte_of_aut +
-          " " +
-          labData.data[0].VISTS_Tme_of_aut;
-        this.result.reported =
-          labData.data[0].Usr_report +
-          " on " +
-          labData.data[0].report_date +
-          " " +
-          labData.data[0].report_time;
-        var jwt = require("jsonwebtoken");
-        var token = jwt.sign(
-          {
-            data: this.result.labnumber,
-          },
-          "Ar3b1Op"
+        this.printDisabled = true;
+        this.result = {
+        labnumber: null,
+        patientname: null,
+        sex: null,
+        age: null,
+        dob: null,
+        hn: null,
+        labepi: null,
+        dateOfCollect: null,
+        specimenDate: null,
+        location: null,
+        room: null,
+        doctor: null,
+        Company: null,
+        method: null,
+        specimen: null,
+        sars: null,
+        limit: null,
+        ctts_nme: null,
+        site: null,
+        authorised: null,
+        reported: null,
+      }
+        let labData = await this.$http.get(
+          `/api/v1/patient/getpatientlabcovid19?labnumber=${this.search.labnumber}`
         );
-        this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
-        this.isFound = true;
+        this.data = labData.data;
+        labData.data.map((d) => {
+          if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
+            this.result.specimen = d.LabResult;
+            this.printDisabled = false;
+          }
+          if (d.CTTC_Cde == "M0004" && d.CTTC_Des == "Method") {
+            this.result.method = d.LabResult;
+            this.printDisabled = false;
+          }
+          if (d.CTTC_Cde == "M3665" && d.CTTC_Des == "Limit of detection") {
+            this.result.limit = d.LabResult;
+            this.printDisabled = false;
+          }
+          if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
+            this.result.sars = d.LabResult;
+            this.printDisabled = false;
+          }
+        });
+
+        if (labData.data.length > 0) {
+          this.result.patientname =
+            labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
+          this.result.hn = labData.data[0].HN;
+          this.result.labnumber = labData.data[0].LabNumber;
+          this.result.sex = labData.data[0].EPVIS_Sex;
+          this.result.age = labData.data[0].EPVIS_Age;
+          this.result.dob = labData.data[0].EPVIS_DateOfBirth;
+          this.result.dateOfCollect =
+            labData.data[0].Dte_of_col + " " + labData.data[0].Tme_of_Col;
+          this.result.doctor = labData.data[0].DoctorName;
+          this.result.ctts_nme = labData.data[0].CTTS_Nme;
+          this.result.site = labData.data[0].Site;
+          this.result.authorised =
+            labData.data[0].Usr_aut +
+            " on " +
+            labData.data[0].VISTS_Dte_of_aut +
+            " " +
+            labData.data[0].VISTS_Tme_of_aut;
+          this.result.reported =
+            labData.data[0].Usr_report +
+            " on " +
+            labData.data[0].report_date +
+            " " +
+            labData.data[0].report_time;
+          var jwt = require("jsonwebtoken");
+          var token = jwt.sign(
+            {
+              data: this.result.labnumber,
+            },
+            "Ar3b1Op"
+          );
+          this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
+          this.isFound = true;
+        }
       }
     },
     /*
@@ -448,9 +586,13 @@ export default {
             refs function generatePdf()
         */
     print() {
-      let body = this.data
+      this.data.map((d) => {
+        d.UserID = this.$route.query.user;
+      });
+      let body = this.data;
+      this.$http.post(`/api/v1/patient/postloglabcovid19`, body);
       // console.log(this.data)
-            this.$http.post(`https://phr.samitivejhospitals.com:3000/api/v1/patient/postpatientlabcovid19`, body)
+      this.$http.post(`https://phr.samitivejhospitals.com:3000/api/v1/patient/postpatientlabcovid19`, body)
       this.$htmlToPaper("printMe");
       // this.$refs.html2Pdf.generatePdf()
     },

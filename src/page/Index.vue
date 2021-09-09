@@ -2,16 +2,21 @@
   <div>
     <b-container fluid style="margin-top: 4rem">
       <b-row class="my-1">
-        <b-col sm="3"> </b-col>
+        <b-col sm="3"></b-col>
 
         <b-col sm="5" style="text-agin: center">
-          <b-form-input
+          <b-form-input v-if="!hn"
             v-model="search.labnumber"
             placeholder="Enter Lab Number"
           ></b-form-input>
+          <select class="form-select" v-if="hn" v-model="search.labnumber" aria-label="Default select example" @change="selectLabNumber()">
+  <option v-for="(lab) in lablist" :key="lab.LabNumber" :value="lab.LabNumber">{{lab.LabNumber}}</option>
+
+          
+</select>
         </b-col>
         <b-col sm="1">
-          <b-button @click="searchLabData()" variant="outline-primary"
+          <b-button v-if="!hn" @click="searchLabData()" variant="outline-primary"
             >Search</b-button
           >
         </b-col>
@@ -228,9 +233,9 @@
               <td style="padding-top: 1rem" width="18%"></td>
               <td style="padding-top: 1rem" width="19%"></td>
             </tr>
-            <tr>
+            <tr v-if="result.method && !result.covid19ag">
               <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
-                <b>Method :</b>
+                <b v-if="result.method">Method :</b>
               </td>
 
               <td
@@ -241,9 +246,22 @@
                 {{ result.method }}
               </td>
             </tr>
-            <tr>
-              <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
-                <b>Specimen :</b>
+            <tr v-if="result.method && result.covid19ag">
+              <td style="padding-top: 3rem; padding-left: 2rem" width="25%">
+                <b v-if="result.method">Method :</b>
+              </td>
+
+              <td
+                style="padding-top: 3rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.method }}
+              </td>
+            </tr>
+            <tr v-if="result.specimen">
+              <td style="padding-top: 1rem; padding-left: 2rem" width="25%" >
+                <b v-if="result.specimen">Specimen :</b>
               </td>
 
               <td
@@ -254,7 +272,7 @@
                 {{ result.specimen }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="result.sars">
               <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
                 <b>SARS-Cov-2 RNA :</b>
               </td>
@@ -267,7 +285,7 @@
                 {{ result.sars }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="result.limit">
               <td style="padding-top: 4rem; padding-left: 2rem" width="25%">
                 <b>Limit of detection :</b>
               </td>
@@ -278,6 +296,19 @@
                 width="75%"
               >
                 {{ result.limit }}
+              </td>
+            </tr>
+            <tr v-if="result.covid19ag">
+              <td style="padding-top: 3rem; padding-left: 2rem" width="25%">
+                <b>COVID-19 Ag :</b>
+              </td>
+
+              <td
+                style="padding-top: 3rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.covid19ag }}
               </td>
             </tr>
           </table>
@@ -406,6 +437,8 @@
         >
       </div>
     </div>
+
+  
     <!-- <vue-html2pdf
         :show-layout="false"
         :float-layout="true"
@@ -434,10 +467,13 @@
 </template>
 
 <script>
-import Vue from "vue";
 import VueHtml2pdf from "vue-html2pdf";
 import VueHtmlToPaper from "vue-html-to-paper";
 import VueQrcode from "vue-qrcode";
+import Vue from "vue";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+Vue.component("v-select", vSelect);
 
 Vue.use(VueHtml2pdf);
 Vue.use(VueQrcode);
@@ -461,6 +497,7 @@ export default {
   },
   data() {
     return {
+      hn: null,
       isFound: false,
       qrValue: null,
       printDisabled: true,
@@ -485,13 +522,31 @@ export default {
         specimen: null,
         sars: null,
         limit: null,
+        covid19ag: null,
         ctts_nme: null,
         site: null,
         authorised: null,
         reported: null,
       },
       data: [],
+      lablist: []
     };
+  },
+  created()
+  {
+    if(this.$route.query.labnumber)
+    {
+      console.log(this.$route.query.labnumber)
+      this.search.labnumber = this.$route.query.labnumber
+      this.searchLabData()
+    }else if(this.$route.query.hn)
+    {
+      this.hn = this.$route.query.hn
+      this.searchLabList()
+    }
+    
+    
+    
   },
   methods: {
     async searchLabData() {
@@ -525,6 +580,7 @@ export default {
           `/api/v1/patient/getpatientlabcovid19?labnumber=${this.search.labnumber}`
         );
         this.data = labData.data;
+        console.log(this.data)
         labData.data.map((d) => {
           if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
             this.result.specimen = d.LabResult;
@@ -540,6 +596,10 @@ export default {
           }
           if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
             this.result.sars = d.LabResult;
+            this.printDisabled = false;
+          }
+          if (d.CTTC_Cde == "N0591" && d.CTTC_Des == "COVID-19 Ag") {
+            this.result.covid19ag = d.LabResult;
             this.printDisabled = false;
           }
         });
@@ -576,10 +636,20 @@ export default {
             },
             "Ar3b1Op"
           );
-          this.qrValue = `http://phr.samitivejhospitals.com/?token=` + token;
+          this.qrValue = `http://phr.samitivejhospitals.com/certificate/lab?token=` + token;
+          console.log(this.qrValue)
           this.isFound = true;
         }
       }
+    },
+    async searchLabList() {
+      console.log(111)
+      let labData = await this.$http.get(
+          `/api/v1/patient/getpatientlablist?hn=${this.$route.query.hn}`
+        );
+      this.lablist = labData.data
+      console.log(this.lablist)
+      console.log(labData)
     },
     /*
             Generate Report using refs and calling the
@@ -596,6 +666,10 @@ export default {
       this.$htmlToPaper("printMe");
       // this.$refs.html2Pdf.generatePdf()
     },
+    async selectLabNumber()
+    {
+      this.searchLabData()
+    }
   },
 };
 </script>
@@ -629,6 +703,7 @@ a {
   text-align: left;
 }
 .printMe {
+  height: 420mm;
   border: 1px solid hsl(174, 100%, 22%);
 }
 </style>

@@ -28,7 +28,7 @@
           <p style="margin-top: 2rem; font-size: 25px; text-align:center">
             <b>Laboratory Report</b>
           </p>
-          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid black; 
+          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid black;
           margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid black;
           font-size:12px;">
             <table class="table borderless">
@@ -83,21 +83,29 @@
                   </td>
                 </tr>
 
-                <tr>
-                  <td style="padding-left:20px">Method :</td>
+                <tr v-if="result.method && !result.covid19ag">
+                  <td style="padding-left:20px"><b>Method :</b></td>
                   <td>{{ result.method }}</td>
                 </tr>
-                <tr>
-                  <td style="padding-left:20px">Specimen :</td>
+                <tr v-else>
+                  <td style="padding-left:20px;padding-top:30px"><b>Method :</b></td>
+                  <td style="padding-top:30px">{{ result.method }}</td>
+                </tr>
+                <tr v-if="result.specimen">
+                  <td style="padding-left:20px"><b>Specimen :</b></td>
                   <td>{{ result.specimen }}</td>
                 </tr>
-                <tr>
-                  <td style="padding-left:20px">SARS-Cov-2 RNA :</td>
+                <tr v-if="result.sars">
+                  <td style="padding-left:20px"><b>SARS-Cov-2 RNA :</b></td>
                   <td>{{ result.sars }}</td>
                 </tr>
-                <tr style="">
-                  <td style="padding-left:20px;padding-top:30px">Limit of detection :</td>
-                  <td style="padding-top:30px">{{ result.limit }}</td>  
+                <tr v-if="result.limit">
+                  <td style="padding-left:20px;padding-top:30px"><b>Limit of detection :</b></td>
+                  <td style="padding-top:30px">{{ result.limit }}</td>
+                </tr>
+                <tr v-if="result.covid19ag">
+                  <td style="padding-left:20px;padding-top:30px"><b>COVID-19 Ag :</b></td>
+                  <td style="padding-top:30px">{{ result.covid19ag }}</td>
                 </tr>
               </tbody>
             </table>
@@ -107,15 +115,15 @@
           class="col-xs-12 col-md-10 offset-md-1"
           v-if="isFound == true"
         >
-          <div class="table-responsive" style="margin-top: 0rem; border-top: 2px solid black; 
+          <div class="table-responsive" style="margin-top: 0rem; border-top: 2px solid black;
           margin-bottom: 1rem; border-bottom: 2px solid black; font-size:12px;">
             <table class="table borderless" style="margin-top: 1rem;">
               <tbody>
                 <tr>
-                  <td>Reported by : {{ result.reported }}</td>
+                  <td><b>Reported by :</b> {{ result.reported }}</td>
                 </tr>
-                <tr> 
-                  <td >Authorised by : {{ result.authorised }}</td>
+                <tr>
+                  <td><b>Authorised by :</b> {{ result.authorised }}</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -155,7 +163,7 @@
         pdf-format="a4"
         pdf-orientation="landscape"
         pdf-content-width="800px"
- 
+
         @progress="onProgress($event)"
         @hasStartedGeneration="hasStartedGeneration()"
         @hasGenerated="hasGenerated($event)"
@@ -219,6 +227,7 @@ export default {
         specimen: null,
         sars: null,
         limit: null,
+        covid19ag: null,
         site: null,
         ctts_nme: null,
         authorised: null,
@@ -239,6 +248,7 @@ export default {
           let labData = await this.$http.get(
             `/api/v1/patient/getlabcovid19?labnumber=${decoded.data}`
           );
+          console.log(labData)
           if (labData.data.length > 0) {
             this.result.patientname =
               labData.data[0].Gvn_nme + " " + labData.data[0].Sur_nme;
@@ -280,6 +290,9 @@ export default {
             if (d.CTTC_Cde == "M4381" && d.CTTC_Des == "SARS-CoV-2 RNA") {
               this.result.sars = d.LabResult;
             }
+            if (d.CTTC_Cde == "N0591" && d.CTTC_Des == "COVID-19 Ag") {
+            this.result.covid19ag = d.LabResult;
+          }
           });
         }
       });

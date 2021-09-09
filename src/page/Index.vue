@@ -233,7 +233,7 @@
               <td style="padding-top: 1rem" width="18%"></td>
               <td style="padding-top: 1rem" width="19%"></td>
             </tr>
-            <tr v-if="result.method && !result.covid19ag">
+            <tr v-if="result.method">
               <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
                 <b v-if="result.method">Method :</b>
               </td>
@@ -246,19 +246,7 @@
                 {{ result.method }}
               </td>
             </tr>
-            <tr v-if="result.method && result.covid19ag">
-              <td style="padding-top: 3rem; padding-left: 2rem" width="25%">
-                <b v-if="result.method">Method :</b>
-              </td>
-
-              <td
-                style="padding-top: 3rem; margin-left: 2rem"
-                colspan="2"
-                width="75%"
-              >
-                {{ result.method }}
-              </td>
-            </tr>
+            
             <tr v-if="result.specimen">
               <td style="padding-top: 1rem; padding-left: 2rem" width="25%" >
                 <b v-if="result.specimen">Specimen :</b>
@@ -299,12 +287,12 @@
               </td>
             </tr>
             <tr v-if="result.covid19ag">
-              <td style="padding-top: 3rem; padding-left: 2rem" width="25%">
+              <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
                 <b>COVID-19 Ag :</b>
               </td>
 
               <td
-                style="padding-top: 3rem; margin-left: 2rem"
+                style="padding-top: 1rem; margin-left: 2rem"
                 colspan="2"
                 width="75%"
               >

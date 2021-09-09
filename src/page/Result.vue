@@ -83,13 +83,9 @@
                   </td>
                 </tr>
 
-                <tr v-if="result.method && !result.covid19ag">
+                <tr v-if="result.method">
                   <td style="padding-left:20px"><b>Method :</b></td>
                   <td>{{ result.method }}</td>
-                </tr>
-                <tr v-else>
-                  <td style="padding-left:20px;padding-top:30px"><b>Method :</b></td>
-                  <td style="padding-top:30px">{{ result.method }}</td>
                 </tr>
                 <tr v-if="result.specimen">
                   <td style="padding-left:20px"><b>Specimen :</b></td>
@@ -104,8 +100,8 @@
                   <td style="padding-top:30px">{{ result.limit }}</td>
                 </tr>
                 <tr v-if="result.covid19ag">
-                  <td style="padding-left:20px;padding-top:30px"><b>COVID-19 Ag :</b></td>
-                  <td style="padding-top:30px">{{ result.covid19ag }}</td>
+                  <td style="padding-left:20px"><b>COVID-19 Ag :</b></td>
+                  <td >{{ result.covid19ag }}</td>
                 </tr>
               </tbody>
             </table>

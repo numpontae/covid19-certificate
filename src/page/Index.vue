@@ -9,11 +9,6 @@
             v-model="search.labnumber"
             placeholder="Enter Lab Number"
           ></b-form-input>
-          <select class="form-select" v-if="hn" v-model="search.labnumber" aria-label="Default select example" @change="selectLabNumber()">
-  <option v-for="(lab) in lablist" :key="lab.LabNumber" :value="lab.LabNumber">{{lab.LabNumber}}</option>
-
-          
-</select>
         </b-col>
         <b-col sm="1">
           <b-button v-if="!hn" @click="searchLabData()" variant="outline-primary"
@@ -21,7 +16,27 @@
           >
         </b-col>
       </b-row>
+      <b-row >
+        <b-col sm="12" style="text-agin: center">
+        <table border="2" style="margin-top: 2rem;margin-bottom: 2rem;width:70%;text-align:center" align="center" v-if="hn">
+          
+      <tr style="border-top: 2px solid black">
+        <th style="border: 1px solid black">Lab Number</th>
+        <th style="border: 1px solid black">Lab Name</th>
+        <th style="border: 1px solid black">Date Of Collected</th>
+        <th style="border: 1px solid black">Time Of Collected</th>
+      </tr>
+      <tr v-for="(lab) in lablist" :key="lab.id" @click="selectRow(lab)" :class="{'highlight': (lab.id == selectedLab)}" style="border-top: 1px solid black;">
+        <td style="border: 1px solid black">{{lab.LabNumber}}</td>
+        <td style="border: 1px solid black">{{lab.CTTS_Nme}}</td>
+        <td style="border: 1px solid black">{{lab.Dte_of_col}}</td>
+        <td style="border: 1px solid black">{{lab.Tme_of_Col}}</td>
+      </tr>
+    </table>
+    </b-col>
+        </b-row>
     </b-container>
+    
     <div class="container">
       <div id="printMe" class="printMe" v-if="isFound == true">
         <div
@@ -489,6 +504,7 @@ export default {
       isFound: false,
       qrValue: null,
       printDisabled: true,
+      selectedLab: null,
       search: {
         labnumber: null,
       },
@@ -631,13 +647,21 @@ export default {
       }
     },
     async searchLabList() {
-      console.log(111)
+      let orderstartdate = ''
+      if(this.$route.query.orderstartdate)
+      {
+        orderstartdate = `&orderstartdate=${this.$route.query.orderstartdate}`
+      }
       let labData = await this.$http.get(
-          `/api/v1/patient/getpatientlablist?hn=${this.$route.query.hn}`
+          `/api/v1/patient/getpatientlablist?hn=${this.$route.query.hn}${orderstartdate}`
         );
+      let x = 0
+      labData.data.map((d)=> {
+        d.id = x
+        x++
+      })
       this.lablist = labData.data
-      console.log(this.lablist)
-      console.log(labData)
+      
     },
     /*
             Generate Report using refs and calling the
@@ -646,6 +670,7 @@ export default {
     print() {
       this.data.map((d) => {
         d.UserID = this.$route.query.user;
+        d.Location = this.$route.query.location;
       });
       let body = this.data;
       this.$http.post(`/api/v1/patient/postloglabcovid19`, body);
@@ -656,6 +681,12 @@ export default {
     },
     async selectLabNumber()
     {
+      this.searchLabData()
+    },
+    async selectRow(lab)
+    {
+      this.selectedLab = lab.id
+      this.search.labnumber = lab.LabNumber
       this.searchLabData()
     }
   },
@@ -694,4 +725,12 @@ a {
   height: 420mm;
   border: 1px solid hsl(174, 100%, 22%);
 }
+tr:hover{
+  background-color: #ffa;
+  cursor:pointer;
+}
+.highlight {
+  background-color: #ffa;
+}
+
 </style>

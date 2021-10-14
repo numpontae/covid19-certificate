@@ -314,6 +314,19 @@
                 {{ result.covid19ag }}
               </td>
             </tr>
+            <tr v-if="result.remark">
+              <td style="padding-top: 1rem; padding-left: 2rem" width="25%">
+                <b>Remark :</b>
+              </td>
+
+              <td
+                style="padding-top: 1rem; margin-left: 2rem"
+                colspan="2"
+                width="75%"
+              >
+                {{ result.remark }}
+              </td>
+            </tr>
           </table>
           <!-- <b-container style="margin-top: 3rem">
             <b-row class="text-left" style="text-algin: left">
@@ -528,6 +541,7 @@ export default {
         limit: null,
         covid19ag: null,
         ctts_nme: null,
+        remark: null,
         site: null,
         authorised: null,
         reported: null,
@@ -586,6 +600,7 @@ export default {
         this.data = labData.data;
         console.log(this.data)
         labData.data.map((d) => {
+          
           if (d.CTTC_Cde == "M0003" && d.CTTC_Des == "Specimen") {
             this.result.specimen = d.LabResult;
             this.printDisabled = false;
@@ -605,6 +620,10 @@ export default {
           if (d.CTTC_Cde == "N0591" && d.CTTC_Des == "COVID-19 Ag") {
             this.result.covid19ag = d.LabResult;
             this.printDisabled = false;
+          }
+          if (d.CTTC_Cde == "M4383" && d.CTTC_Des == "Remark") {
+            this.result.remark = d.LabResult;
+            // this.printDisabled = false;
           }
         });
 

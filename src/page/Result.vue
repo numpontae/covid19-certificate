@@ -103,6 +103,10 @@
                   <td style="padding-left:20px"><b>COVID-19 Ag :</b></td>
                   <td >{{ result.covid19ag }}</td>
                 </tr>
+                <tr v-if="result.remark">
+                  <td style="padding-left:20px"><b>Remark :</b></td>
+                  <td >{{ result.remark }}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -224,6 +228,7 @@ export default {
         sars: null,
         limit: null,
         covid19ag: null,
+        remark: null,
         site: null,
         ctts_nme: null,
         authorised: null,
@@ -288,6 +293,9 @@ export default {
             }
             if (d.CTTC_Cde == "N0591" && d.CTTC_Des == "COVID-19 Ag") {
             this.result.covid19ag = d.LabResult;
+          }
+          if (d.CTTC_Cde == "M4383" && d.CTTC_Des == "Remark") {
+            this.result.remark = d.LabResult;
           }
           });
         }
